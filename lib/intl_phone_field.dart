@@ -13,6 +13,9 @@ class IntlPhoneField extends StatefulWidget {
   /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
 
+  /// Enable to change the country
+  final bool enableCountryChange;
+
   /// How the text should be aligned horizontally.
   final TextAlign textAlign;
 
@@ -262,6 +265,7 @@ class IntlPhoneField extends StatefulWidget {
     this.dropdownDecoration = const BoxDecoration(),
     this.inputFormatters,
     this.enabled = true,
+    this.enableCountryChange = false,
     this.keyboardAppearance,
     @Deprecated('Use searchFieldInputDecoration of PickerDialogStyle instead') this.searchText = 'Search country',
     this.dropdownIconPosition = IconPosition.leading,
@@ -436,6 +440,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       child: DecoratedBox(
         decoration: widget.dropdownDecoration,
         child: InkWell(
+          onTap: widget.enabled && widget.enableCountryChange ? _changeCountry : null,
           borderRadius: widget.dropdownDecoration.borderRadius as BorderRadius?,
           child: Padding(
             padding: widget.flagsButtonPadding,
@@ -473,7 +478,6 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
               ],
             ),
           ),
-          onTap: widget.enabled ? _changeCountry : null,
         ),
       ),
     );
